@@ -84,9 +84,9 @@ const DataTable = () => {
                      <TableCell align="center">{q.type===1?"True/False":"MCQs"}</TableCell>
                      <TableCell align="center">{q.level}</TableCell>
                      <TableCell align="center" >
-                   
-                       <VisibilityOutlinedIcon style={{cursor:'pointer'}} />
-                      
+                   <Link to={`/data/${q.id}`} style={{cursor:'pointer' , color:"#333" , textDecoration:'none'}}>
+                       <VisibilityOutlinedIcon  />
+                       </Link>
                  </TableCell>
                      
                      </TableRow>

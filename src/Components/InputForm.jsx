@@ -56,19 +56,19 @@ const InputForm = () => {
         console.log(formik.values)
     const handleSubmit =async() =>{
         let submitData={
-            statement_en: formik.values.statement_en,
-            statement_es: formik.values.statement_en,
+            "statement_en": formik.values.statement_en,
+            "statement_es": formik.values.statement_es,
             
-            isTrue: formik.values.isTrue==="True"?true:false,
-            level: parseInt(formik.values.level),
-            type: formik.values.level==1?2:1,
-            Answers:[],
-            explanation: [formik.values.explanation]
+            "isTrue": formik.values.isTrue==="true"?true:false,
+            "level": parseInt(formik.values.level),
+            "type": formik.values.level==1?2:1,
+            "Answers":[],
+            "explanation": "['I am explanation']"
         }
         console.log("submit",submitData)
         try {
-             const postRequest=await axios.post(api+"PostQuestion" , submitData)
-            console.log("postRequest.data")
+             const postRequest=await axios.post(api+"PostQuestion" , {submitData})
+            console.log(postRequest.data)
         }
         catch(error)
         {

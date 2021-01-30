@@ -17,7 +17,7 @@ const PopUp = ({openPopUp,setOpenPopUp}) => {
             </DialogContent>
            <DialogActions>
                <Button onClick={()=>setOpenPopUp(false)}>Close</Button>
-               <Button onClick={()=>setOpenPopUp(false)}>Save</Button>
+         
            </DialogActions>
         </Dialog>
     );
