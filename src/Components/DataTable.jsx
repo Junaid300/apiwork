@@ -3,7 +3,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+import { Link , useParams} from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     fechingicon:{
        position:'absolute',
@@ -25,15 +27,26 @@ const DataTable = () => {
     
  },[])
   const fetchingData = async()=>{
+    
     try {
-        setisDataFeteched(true)
+      
+        setisDataFeteched(true) 
         const record=await axios.get(api+"GetQuestions");
+        // console.log("Status", record.status)
         setQuestions(record.data)
+        toast.success("Data Fetched Successfully")
         setisDataFeteched(false)
+        
     }
     catch(error)
     {
-        console.log(error);
+      // toast.error(error.message)
+      toast.error(error.message)
+         console.log("ERROR",error);
+    }
+    finally{
+   
+      setisDataFeteched(false)
     }
   }
   const [page, setPage] = useState(0);
@@ -51,6 +64,7 @@ const DataTable = () => {
     const pageRecord=questions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
     return isDataFecteched?<CircularProgress className={classes.fechingicon}/> :  ( 
       <TableContainer>
+          <ToastContainer/>
           <Table >
               <TableHead style={{backgroundColor:'#333' , }}>
                   <TableRow >
@@ -67,9 +81,13 @@ const DataTable = () => {
                    <TableRow hover={true} key={q.id}>
                      <TableCell align="center">{q.id}</TableCell>
                      <TableCell align="center">{isEnglish?q.statement_en:q.statement_es}</TableCell>
-                     <TableCell align="center">{q.type}</TableCell>
+                     <TableCell align="center">{q.type===1?"True/False":"MCQs"}</TableCell>
                      <TableCell align="center">{q.level}</TableCell>
-                     <TableCell align="center" ><VisibilityOutlinedIcon /></TableCell>
+                     <TableCell align="center" >
+                   
+                       <VisibilityOutlinedIcon style={{cursor:'pointer'}} />
+                      
+                 </TableCell>
                      
                      </TableRow>
                     )}
@@ -87,6 +105,7 @@ const DataTable = () => {
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
+      
       </TableContainer>
      );
 }

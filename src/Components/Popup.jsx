@@ -6,7 +6,7 @@ const PopUp = ({openPopUp,setOpenPopUp}) => {
     console.log("POP");
   
     return (  
-        <Dialog open={openPopUp} maxWidth="sm" fullWidth>
+        <Dialog open={openPopUp} maxWidth="md" fullWidth>
             <DialogTitle>
                
                     Add Question
